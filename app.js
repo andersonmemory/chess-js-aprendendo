@@ -4,70 +4,14 @@ const infoDisplay = document.querySelector("#info-display")
 const width = 8
 
 const startPieces = [
-  rook,
-  knight,
-  bishop,
-  queen,
-  king,
-  bishop,
-  knight,
-  rook,
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  pawn,
-  rook,
-  knight,
-  bishop,
-  queen,
-  king,
-  bishop,
-  knight,
-  rook,
+  rook, knight, bishop, queen, king, bishop, knight, rook,
+  pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn,
+  "", "", "", "", "", "", "", "",
+  "", "", "", "", "", "", "", "",
+  "", "", "", "", "", "", "", "",
+  "", "", "", "", "", "", "", "",
+  pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn,
+  rook, knight, bishop, queen, king, bishop, knight, rook,
 ]
 
 function CreateBoard() {
@@ -77,13 +21,25 @@ function CreateBoard() {
     square.innerHTML = startPiece
     square.firstChild?.setAttribute("draggable", true)
     square.setAttribute("square-id", i)
-    let row = Math.floor(63 - i + 1)
-    if (row % 2 === 0) {
-      square.classList.add(i % 2 === 0 ? "beige" : "brown")
-    } else {
-      square.classList.add(i % 2 === 0 ? "brown" : brown)
-    }
+    const row = Math.floor((63 - i) / 8 + 1)
+    if (row % 2 === 0)
+      {
+        square.classList.add(i % 2 === 0 ? "beige" : "brown")
+      } else {
+        square.classList.add(i % 2 === 0 ? "brown" : "beige")
+      }
+
+      if (i <= 15) {
+        square.classList.add("black")
+      }
+
+      if (i >= 48) {
+        square.classList.add("white")
+      }
+
+
+      gameBoard.append(square)
   })
 }
-
+  
 CreateBoard()
