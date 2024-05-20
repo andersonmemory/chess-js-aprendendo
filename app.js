@@ -2,6 +2,8 @@ const gameBoard = document.querySelector("#gameboard")
 const playerDisplay = document.querySelector("#player")
 const infoDisplay = document.querySelector("#info-display")
 const width = 8
+let playerGo = "black"
+
 
 const startPieces = [
   rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -57,4 +59,21 @@ function dragStart(e) {
 
 function dragOver(e) {
   e.preventDefault()
+}
+
+function dragDrop(e) {
+  e.StopPropagation ()
+  const correctGo = draggedElement.target.firstChild.classList.contains(playerGo)
+  const taken = e.target.firstChild.classList.contains("piece")
+  const opponentGo = playerGo === 'white' ? 'black' : 'white'
+  const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo)
+
+  if (correctGo) {
+    if (takenByOpponent && valid)
+      {
+        e.target.parentNode.append(draggedElement)
+        e.target.remove()
+        return;
+      }
+  }
 }
