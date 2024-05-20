@@ -73,7 +73,16 @@ function dragDrop(e) {
       {
         e.target.parentNode.append(draggedElement)
         e.target.remove()
-        return;
+        return
+      }
+      if (taken && !takenByOpponent) {
+          infoDisplay.textContent = "you cannot go here!"
+          setTimeout(() => (infoDisplay.textContent = ""), 2000)
+          return
+        }
+      if (valid) {
+        e.target.append(draggedElement)
+        return
       }
   }
 }
