@@ -62,9 +62,10 @@ function dragOver(e) {
 }
 
 function dragDrop(e) {
-  e.StopPropagation ()
-  const correctGo = draggedElement.target.firstChild.classList.contains(playerGo)
-  const taken = e.target.firstChild.classList.contains("piece")
+  e.stopPropagation()
+  const correctGo = draggedElement.firstChild.classList.contains(playerGo)
+  const taken = e.target.classList.contains("piece")
+  const valid = checkIfValid(e.target)
   const opponentGo = playerGo === 'white' ? 'black' : 'white'
   const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo)
 
@@ -86,3 +87,13 @@ function dragDrop(e) {
       }
   }
 }
+
+function checkIfValid(target) {
+  const targetId = Number(target.getAttribute("square-id")) || Number(target.parentNode.getAttribute("square-id"))
+  const startId = Number(startPositionId)
+  const piece = draggedElement.id
+  console.log("targetID", targetId)
+  console.log("startId", startId)
+  console.log("piece", piece)
+}
+
