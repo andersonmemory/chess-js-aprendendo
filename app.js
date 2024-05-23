@@ -76,6 +76,7 @@ function dragDrop(e) {
       {
         e.target.parentNode.append(draggedElement)
         e.target.remove()
+        checkForWin()
         changePlayer()
         return
       }
@@ -86,7 +87,9 @@ function dragDrop(e) {
         }
       if (valid) {
         e.target.append(draggedElement)
+        checkForWin()
         changePlayer()
+
         return
       }
   }
@@ -298,9 +301,7 @@ function changePlayer() {
 }
 
 function reverseIds() {
-  // tenta dps com #gameboard .square pra ver se muda
   const allSquares = document.querySelectorAll("#gameboard .square")
-  console.log("PlayerGo white", playerGo)
   allSquares.forEach((square, i) => square.setAttribute(("square-id"), width * width - 1 - i))
 }
 
@@ -308,4 +309,16 @@ function revertIds() {
   const allSquares = document.querySelectorAll(".square")
   console.log("PlayerGo black", playerGo)
   allSquares.forEach((square, i) => square.setAttribute("square-id", i))
+}
+
+function checkForWin() {
+  const kings = Array.from(document.querySelectorAll("#king"))
+  if (!kings.some(king => king.firstChild.classList.contains("white"))) {
+    infoDisplay.textContent = "Black wins!"
+    console.log("Black wins!")
+  }
+  if (!kings.some(king => king.firstChild.classList.contains("black"))) {
+    infoDisplay.textContent = "White wins!"
+    console.log("White wins!")
+  }
 }
