@@ -112,6 +112,20 @@ switch(piece) {
       return true
     }
     break;
+  case 'knight':
+    if (
+      startId + width * 2 + 1 === targetId ||
+      startId + width * 2 - 1 === targetId ||
+      startId - width * 2 + 1 === targetId ||
+      startId - width * 2 - 1 === targetId ||
+      startId - width + 2 === targetId ||
+      startId - width - 2 === targetId ||
+      startId + width + 2 === targetId ||
+      startId + width - 2 === targetId 
+    ) {
+      return true
+    }
+    break;
   case 'bishop':
     if (
       startId + width + 1 === targetId ||
