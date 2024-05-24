@@ -2,8 +2,7 @@ const gameBoard = document.querySelector("#gameboard")
 const playerDisplay = document.querySelector("#player")
 const infoDisplay = document.querySelector("#info-display")
 const width = 8
-let playerGo = "black"
-
+let playerGo = "white"
 
 const startPieces = [
   rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -51,6 +50,9 @@ allSquares.forEach((square) => {
 
 let startPositionId
 let draggedElement
+
+// reverse the board for the white pieces to start the game.
+reverseIds()
 
 function dragStart(e) {
   startPositionId = e.target.parentNode.getAttribute("square-id")
