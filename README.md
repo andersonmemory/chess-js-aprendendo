@@ -2,7 +2,8 @@
 <p> Projeto funcional seguindo um tutorial. Refeito até fazer sem ajuda.</p>
 <p align=center>
 <a href=#sobre-o-projeto>Sobre o projeto </a>
-<a href=#tutorial-original>- Tutorial original</a>
+<span>|<span>
+<a href=#tutorial-original>Tutorial original</a>
 </p>
 
 <p align="center">
@@ -26,16 +27,11 @@ Não-funcionais:
 - En-passant.
 - Roque curto.
 - Roque longo.
-## <span class="yt-logo-container"><img src="./.github/yt.png" width="35px" align-items="center"></img>Tutorial original
-</span>
+
+
+<h1><div style="display: flex; align-items: center;">
+  <img src="./.github/yt.png" width="35px" alt="YouTube Logo"> <span style="margin-left: 10px;">Tutorial original</span>
+</div></h1>
 
 <p>O tutorial original pode ser acessado através <a href=https://www.youtube.com/watch?v=Qv0fvm5B0EM>deste link</a></p>
 
-
-<style>
-  .yt-logo-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-<style>
