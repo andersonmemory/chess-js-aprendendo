@@ -28,7 +28,6 @@ Não-funcionais:
 - Roque curto.
 - Roque longo.
 
-
 ## Tutorial original
 
 
