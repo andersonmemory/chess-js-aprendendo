@@ -29,10 +29,8 @@ Não-funcionais:
 - Roque longo.
 
 
-<h1><div style="display: flex">
-  <img src="./.github/yt.png" width="35px"
-  height="40px"; alt="YouTube Logo"> <span  style="margin-left: 10px;">Tutorial original</span>
-</div>  </h1>
+## 🎥 Tutorial original
+
 
 <p>O tutorial original pode ser acessado através <a href=https://www.youtube.com/watch?v=Qv0fvm5B0EM>deste link</a></p>
 
