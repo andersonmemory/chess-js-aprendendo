@@ -1,9 +1,9 @@
 <h1 align=center> ♙ Xadrez simples em Javascript</h1>
 <p align=center> Projeto funcional seguindo um tutorial. Refeito até fazer sem ajuda.</p>
 <p align=center>
-<a href=#sobre-o-projeto>Sobre o projeto </a>
+<a href=#♔♞-sobre-o-projeto-♕-♜>Sobre o projeto </a>
 <span>|<span>
-<a href=#tutorial-original>Tutorial original</a>
+<a href=#🎥-tutorial-original>Tutorial original</a>
 </p>
 
 <p align="center">
