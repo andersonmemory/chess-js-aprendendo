@@ -1,5 +1,5 @@
 <h1 align=center> ♙ Xadrez simples em Javascript</h1>
-<p> Projeto funcional seguindo um tutorial. Refeito até fazer sem ajuda.</p>
+<p align=center> Projeto funcional seguindo um tutorial. Refeito até fazer sem ajuda.</p>
 <p align=center>
 <a href=#sobre-o-projeto>Sobre o projeto </a>
 <span>|<span>
