@@ -2,8 +2,8 @@ const gameBoard = document.querySelector("#gameboard")
 const playerDisplay = document.querySelector("#player")
 const infoDisplay = document.querySelector("#info-display")
 const width = 8
-let playerGo = 'black'
-playerDisplay.textContent = 'black'
+let playerGo = 'white'
+playerDisplay.textContent = 'white'
 
 
 const startPieces = [
@@ -85,16 +85,18 @@ function dragDrop(e) {
     if (takenByOpponent && valid) {
       e.target.parentNode.append(draggedElement)
       e.target.remove()
+      checkForWin()
       changePlayer()
       return
     }
-    if (taken) {
+    if (taken && !takenByOpponent) {
       infoDisplay.textContent = "you cannot go here!"
       setTimeout(() => infoDisplay.textContent = "", 2000)
       return
     }
     if (valid) {
       e.target.append(draggedElement)
+      checkForWin()
       changePlayer()
       return
     }
@@ -103,6 +105,8 @@ function dragDrop(e) {
 
 
 }
+
+reverseIds()
 
 function checkIfValid(target) {
   const targetId = Number(target.getAttribute('square-id')) || Number(target.parentNode.getAttribute('square-id'))
@@ -180,36 +184,36 @@ function checkIfValid(target) {
     case 'rook':
       if (
         startId + width === targetId ||
-        startId + width * 2 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) ||
-        startId + width * 3 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) ||
-        startId + width * 4 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) && !document.querySelector(`[square-id="${startId + width * 3}"]`) ||
-        startId + width * 5 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) && !document.querySelector(`[square-id="${startId + width * 3}"]`) && !document.querySelector(`[square-id="${startId + width * 4}"]`) ||
-        startId + width * 6 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) && !document.querySelector(`[square-id="${startId + width * 3}"]`) && !document.querySelector(`[square-id="${startId + width * 4}"]`) && !document.querySelector(`[square-id="${startId + width * 5}"]`) ||
-        startId + width * 7 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) && !document.querySelector(`[square-id="${startId + width * 3}"]`) && !document.querySelector(`[square-id="${startId + width * 4}"]`) && !document.querySelector(`[square-id="${startId + width * 5}"]`) && !document.querySelector(`[square-id="${startId + width * 6}"]`) ||
+        startId + width * 2 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild ||
+        startId + width * 3 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild ||
+        startId + width * 4 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3}"]`).firstChild ||
+        startId + width * 5 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 4}"]`).firstChild ||
+        startId + width * 6 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 4}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 5}"]`).firstChild ||
+        startId + width * 7 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 4}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 5}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 6}"]`).firstChild ||
         // --
         startId - width === targetId ||
-        startId - width * 2 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) ||
-        startId - width * 3 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) ||
-        startId - width * 4 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) && !document.querySelector(`[square-id="${startId - width * 3}"]`) ||
-        startId - width * 5 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) && !document.querySelector(`[square-id="${startId - width * 3}"]`) && !document.querySelector(`[square-id="${startId - width * 4}"]`) ||
-        startId - width * 6 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) && !document.querySelector(`[square-id="${startId - width * 3}"]`) && !document.querySelector(`[square-id="${startId - width * 4}"]`) && !document.querySelector(`[square-id="${startId - width * 5}"]`) ||
-        startId - width * 7 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) && !document.querySelector(`[square-id="${startId - width * 3}"]`) && !document.querySelector(`[square-id="${startId - width * 4}"]`) && !document.querySelector(`[square-id="${startId - width * 5}"]`) && !document.querySelector(`[square-id="${startId - width * 6}"]`) ||
+        startId - width * 2 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild ||
+        startId - width * 3 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild ||
+        startId - width * 4 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 3}"]`).firstChild ||
+        startId - width * 5 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 4}"]`).firstChild ||
+        startId - width * 6 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 4}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 5}"]`).firstChild ||
+        startId - width * 7 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 4}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 5}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 6}"]`).firstChild ||
         // --
         startId + 1 === targetId ||
-        startId + 2 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) ||
-        startId + 3 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) ||
-        startId + 4 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) && !document.querySelector(`[square-id="${startId + 3}"]`) ||
-        startId + 5 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) && !document.querySelector(`[square-id="${startId + 3}"]`) && !document.querySelector(`[square-id="${startId + 4}"]`) ||
-        startId + 6 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) && !document.querySelector(`[square-id="${startId + 3}"]`) && !document.querySelector(`[square-id="${startId + 4}"]`) && !document.querySelector(`[square-id="${startId + 5}"]`) ||
-        startId + 7 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) && !document.querySelector(`[square-id="${startId + 3}"]`) && !document.querySelector(`[square-id="${startId + 4}"]`) && !document.querySelector(`[square-id="${startId + 5}"]`) && !document.querySelector(`[square-id="${startId + 6}"]`) ||
+        startId + 2 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild ||
+        startId + 3 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild ||
+        startId + 4 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + 3}"]`).firstChild ||
+        startId + 5 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + 4}"]`).firstChild ||
+        startId + 6 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + 4}"]`).firstChild && !document.querySelector(`[square-id="${startId + 5}"]`).firstChild ||
+        startId + 7 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + 4}"]`).firstChild && !document.querySelector(`[square-id="${startId + 5}"]`) && !document.querySelector(`[square-id="${startId + 6}"]`).firstChild ||
         // --
         startId - 1 === targetId ||
-        startId - 2 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) ||
-        startId - 3 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) ||
-        startId - 4 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) && !document.querySelector(`[square-id="${startId - 3}"]`) ||
-        startId - 5 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) && !document.querySelector(`[square-id="${startId - 3}"]`) && !document.querySelector(`[square-id="${startId - 4}"]`) ||
-        startId - 6 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) && !document.querySelector(`[square-id="${startId - 3}"]`) && !document.querySelector(`[square-id="${startId - 4}"]`) && !document.querySelector(`[square-id="${startId - 5}"]`) ||
-        startId - 7 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) && !document.querySelector(`[square-id="${startId - 3}"]`) && !document.querySelector(`[square-id="${startId - 4}"]`) && !document.querySelector(`[square-id="${startId - 5}"]`) && !document.querySelector(`[square-id="${startId - 6}"]`)
+        startId - 2 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild ||
+        startId - 3 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild ||
+        startId - 4 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - 3}"]`).firstChild ||
+        startId - 5 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - 4}"]`).firstChild ||
+        startId - 6 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - 4}"]`).firstChild && !document.querySelector(`[square-id="${startId - 5}"]`).firstChild ||
+        startId - 7 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - 4}"]`).firstChild && !document.querySelector(`[square-id="${startId - 5}"]`) && !document.querySelector(`[square-id="${startId - 6}"]`).firstChild
       ) {
         return true
       }
@@ -246,39 +250,39 @@ function checkIfValid(target) {
         startId + width * 4 - 4 === targetId && !document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2 - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3 - 3}"]`).firstChild ||
         startId + width * 5 - 5 === targetId && !document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2 - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3 - 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 4 - 4}"]`).firstChild ||
         startId + width * 6 - 6 === targetId && !document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2 - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3 - 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 4 - 4}"]`).firstChild &&  !document.querySelector(`[square-id="${startId + width * 5 - 5}"]`).firstChild ||
-        startId + width * 7 - 7 === targetId && !document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2 - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3 - 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 4 - 4}"]`).firstChild &&  !document.querySelector(`[square-id="${startId + width * 5 - 5}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 6 - 6}"]`) ||
-        // --
+        // -- 
+
         startId + width === targetId ||
-        startId + width * 2 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) ||
-        startId + width * 3 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) ||
-        startId + width * 4 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) && !document.querySelector(`[square-id="${startId + width * 3}"]`) ||
-        startId + width * 5 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) && !document.querySelector(`[square-id="${startId + width * 3}"]`) && !document.querySelector(`[square-id="${startId + width * 4}"]`) ||
-        startId + width * 6 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) && !document.querySelector(`[square-id="${startId + width * 3}"]`) && !document.querySelector(`[square-id="${startId + width * 4}"]`) && !document.querySelector(`[square-id="${startId + width * 5}"]`) ||
-        startId + width * 7 === targetId && !document.querySelector(`[square-id="${startId + width}"]`) && !document.querySelector(`[square-id="${startId + width * 2}"]`) && !document.querySelector(`[square-id="${startId + width * 3}"]`) && !document.querySelector(`[square-id="${startId + width * 4}"]`) && !document.querySelector(`[square-id="${startId + width * 5}"]`) && !document.querySelector(`[square-id="${startId + width * 6}"]`) ||
+        startId + width * 2 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild ||
+        startId + width * 3 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild ||
+        startId + width * 4 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3}"]`).firstChild ||
+        startId + width * 5 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 4}"]`).firstChild ||
+        startId + width * 6 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 4}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 5}"]`).firstChild ||
+        startId + width * 7 === targetId && !document.querySelector(`[square-id="${startId + width}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 4}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 5}"]`).firstChild && !document.querySelector(`[square-id="${startId + width * 6}"]`).firstChild ||
         // --
         startId - width === targetId ||
-        startId - width * 2 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) ||
-        startId - width * 3 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) ||
-        startId - width * 4 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) && !document.querySelector(`[square-id="${startId - width * 3}"]`) ||
-        startId - width * 5 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) && !document.querySelector(`[square-id="${startId - width * 3}"]`) && !document.querySelector(`[square-id="${startId - width * 4}"]`) ||
-        startId - width * 6 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) && !document.querySelector(`[square-id="${startId - width * 3}"]`) && !document.querySelector(`[square-id="${startId - width * 4}"]`) && !document.querySelector(`[square-id="${startId - width * 5}"]`) ||
-        startId - width * 7 === targetId && !document.querySelector(`[square-id="${startId - width}"]`) && !document.querySelector(`[square-id="${startId - width * 2}"]`) && !document.querySelector(`[square-id="${startId - width * 3}"]`) && !document.querySelector(`[square-id="${startId - width * 4}"]`) && !document.querySelector(`[square-id="${startId - width * 5}"]`) && !document.querySelector(`[square-id="${startId - width * 6}"]`) ||
+        startId - width * 2 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild ||
+        startId - width * 3 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild ||
+        startId - width * 4 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 3}"]`).firstChild ||
+        startId - width * 5 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 4}"]`).firstChild ||
+        startId - width * 6 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 4}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 5}"]`).firstChild ||
+        startId - width * 7 === targetId && !document.querySelector(`[square-id="${startId - width}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 4}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 5}"]`).firstChild && !document.querySelector(`[square-id="${startId - width * 6}"]`).firstChild ||
         // --
         startId + 1 === targetId ||
-        startId + 2 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) ||
-        startId + 3 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) ||
-        startId + 4 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) && !document.querySelector(`[square-id="${startId + 3}"]`) ||
-        startId + 5 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) && !document.querySelector(`[square-id="${startId + 3}"]`) && !document.querySelector(`[square-id="${startId + 4}"]`) ||
-        startId + 6 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) && !document.querySelector(`[square-id="${startId + 3}"]`) && !document.querySelector(`[square-id="${startId + 4}"]`) && !document.querySelector(`[square-id="${startId + 5}"]`) ||
-        startId + 7 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`) && !document.querySelector(`[square-id="${startId + 2}"]`) && !document.querySelector(`[square-id="${startId + 3}"]`) && !document.querySelector(`[square-id="${startId + 4}"]`) && !document.querySelector(`[square-id="${startId + 5}"]`) && !document.querySelector(`[square-id="${startId + 6}"]`) ||
+        startId + 2 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild ||
+        startId + 3 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild ||
+        startId + 4 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + 3}"]`).firstChild ||
+        startId + 5 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + 4}"]`).firstChild ||
+        startId + 6 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + 4}"]`).firstChild && !document.querySelector(`[square-id="${startId + 5}"]`).firstChild ||
+        startId + 7 === targetId && !document.querySelector(`[square-id="${startId + 1}"]`).firstChild && !document.querySelector(`[square-id="${startId + 2}"]`).firstChild && !document.querySelector(`[square-id="${startId + 3}"]`).firstChild && !document.querySelector(`[square-id="${startId + 4}"]`).firstChild && !document.querySelector(`[square-id="${startId + 5}"]`) && !document.querySelector(`[square-id="${startId + 6}"]`).firstChild ||
         // --
         startId - 1 === targetId ||
-        startId - 2 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) ||
-        startId - 3 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) ||
-        startId - 4 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) && !document.querySelector(`[square-id="${startId - 3}"]`) ||
-        startId - 5 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) && !document.querySelector(`[square-id="${startId - 3}"]`) && !document.querySelector(`[square-id="${startId - 4}"]`) ||
-        startId - 6 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) && !document.querySelector(`[square-id="${startId - 3}"]`) && !document.querySelector(`[square-id="${startId - 4}"]`) && !document.querySelector(`[square-id="${startId - 5}"]`) ||
-        startId - 7 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`) && !document.querySelector(`[square-id="${startId - 2}"]`) && !document.querySelector(`[square-id="${startId - 3}"]`) && !document.querySelector(`[square-id="${startId - 4}"]`) && !document.querySelector(`[square-id="${startId - 5}"]`) && !document.querySelector(`[square-id="${startId - 6}"]`)
+        startId - 2 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild ||
+        startId - 3 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild ||
+        startId - 4 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - 3}"]`).firstChild ||
+        startId - 5 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - 4}"]`).firstChild ||
+        startId - 6 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - 4}"]`).firstChild && !document.querySelector(`[square-id="${startId - 5}"]`).firstChild ||
+        startId - 7 === targetId && !document.querySelector(`[square-id="${startId - 1}"]`).firstChild && !document.querySelector(`[square-id="${startId - 2}"]`).firstChild && !document.querySelector(`[square-id="${startId - 3}"]`).firstChild && !document.querySelector(`[square-id="${startId - 4}"]`).firstChild && !document.querySelector(`[square-id="${startId - 5}"]`) && !document.querySelector(`[square-id="${startId - 6}"]`).firstChild
       ) {
         return true
       }
@@ -301,12 +305,12 @@ function checkIfValid(target) {
 
 function changePlayer() {
   if (playerGo === "black") {
-    revertIds()
+    reverseIds()
     playerGo = "white"
     playerDisplay.textContent = 'white'
-
+    
   } else {
-    reverseIds()
+    revertIds()
     playerGo = "black";
     playerDisplay.textContent = 'black'
   }
@@ -326,12 +330,12 @@ function checkForWin() {
   const kings = Array.from(document.querySelectorAll('#king'))
   console.log(kings)
   if (!kings.some(king => king.firstChild.classList.contains('white')))  {
-    infoDisplay.innetHTML = "Black player wins!"
+    infoDisplay.innerHTML = "Black player wins!"
     const allSquares = document.querySelectorAll('.square')
     allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false))
   }
   if (!kings.some(king => king.firstChild.classList.contains('black')))  {
-    infoDisplay.innetHTML = "White player wins!"
+    infoDisplay.innerHTML = "White player wins!"
     const allSquares = document.querySelectorAll('.square')
     allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false))
   }
