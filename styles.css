@@ -5,11 +5,18 @@
   width: 512px;
 }
 
+#gameBoard .piece {
+  display: flex;
+  height: 32px;
+  margin-left: 8px;
+}
 
 .square {
+  display: flex;
   height: 64px;
   width: 64px;
-  background: gray;
+  justify-content: center;
+  align-items: center;
 }
 
 .black-square {
@@ -20,9 +27,3 @@
   background: #eae1e0;
 }
 
-.piece {
-  display: flex;
-  margin: 5px auto;
-  width: 32px;
-  height: 32px;
-}
