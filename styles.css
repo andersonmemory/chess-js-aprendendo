@@ -1,0 +1,20 @@
+#gameBoard {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid red;
+  width: 512px;
+}
+
+
+.square {
+  height: 64px;
+  width: 64px;
+  background: gray;
+}
+
+.piece {
+  display: flex;
+  margin: 5px auto;
+  width: 32px;
+  height: 32px;
+}
