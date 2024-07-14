@@ -1,4 +1,4 @@
-<h1 align="center"> DevLinks </h1>
+<h1 align="center"> ChessJS </h1>
 
 <p align="center">
 Projeto realizado sob as instruções do vídeo do canal <a href="https://www.youtube.com/@aniakubow" target="_blank">Code with Ania Kubów</a>, depois feito sucessivas tentativas de refazer mentalmente, até ser capaz de fazer sem ajuda.
